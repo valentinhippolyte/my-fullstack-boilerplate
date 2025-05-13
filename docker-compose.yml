@@ -1,0 +1,54 @@
+# we define the version of the docker compose file
+version: "3.9"
+
+# we define the 4 services
+services:
+  backend:
+    build: ./backend # we build the image from the Dockerfile in the backend directory
+    container_name: backend
+    ports:
+      - "5000:5000" # we map the port 5000 of the container to the port 5000 of the host
+    volumes:
+      - ./backend:/app # we mount the backend directory to the /app directory in the container
+      - /app/node_modules # we exclude the node_modules directory from the volume
+    environment:
+      - PORT=5000
+      - MONGO_URI=mongodb://mongo:27017/boilerplate_db
+      - JWT_SECRET=your_jwt_secret_here
+    depends_on:
+      - mongo # this service has to be started after the mongo service
+
+  frontend:
+    build: ./frontend # we build the image from the Dockerfile in the frontend directory
+    container_name: frontend
+    ports:
+      - "5173:5173" # we map the port 5173 of the container to the port 5173 of the host
+    volumes:
+      - ./frontend:/app # we mount the frontend directory to the /app directory in the container
+      - /app/node_modules # we exclude the node_modules directory from the volume
+    environment:
+      - VITE_API_URL=http://localhost:5000
+    depends_on:
+      - backend # this service has to be started after the backend service
+  mongo: # we use local mongo database
+    image: mongo # we use the mongo image from the docker hub
+    container_name: mongo
+    ports:
+      - "27017:27017" # we map the port 27017 of the container to the port 27017 of the host
+    volumes:
+      - mongo_data:/data/db # we mount the mongo_data volume to the /data/db directory in the container
+
+  mongo-express: # interface to manage the mongo database in your browser
+    image: mongo-express # we use the mongo-express image from the docker hub
+    container_name: mongo-express
+    ports:
+      - "8081:8081" # we map the port 8081 of the container to the port 8081 of the host
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongo
+      - ME_CONFIG_BASICAUTH_USERNAME=admin
+      - ME_CONFIG_BASICAUTH_PASSWORD=admin
+    depends_on:
+      - mongo # this service has to be started after the mongo service
+
+volumes:
+  mongo_data: # we define the mongo_data volume
