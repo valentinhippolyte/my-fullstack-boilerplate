@@ -9,7 +9,7 @@ export const useAuthStore = defineStore("auth", {
 
   actions: {
     async register(email, password) {
-      await fetchClient("/auth/register", {
+      await fetchClient("/api/auth/register", {
         method: "POST",
         body: JSON.stringify({ email, password }),
       });
@@ -18,7 +18,7 @@ export const useAuthStore = defineStore("auth", {
     },
 
     async login(email, password) {
-      const data = await fetchClient("/auth/login", {
+      const data = await fetchClient("/api/auth/login", {
         method: "POST",
         body: JSON.stringify({ email, password }),
       });
