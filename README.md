@@ -1,134 +1,93 @@
 # Fullstack Boilerplate
 
-A modern fullstack boilerplate with Vue.js frontend and Express.js backend.
+A modern fullstack boilerplate using Docker with a Vue.js frontend and an Express.js backend.
 
-## Features
+## ✨ Features
 
-- **Frontend**
+### Frontend
 
-  - Vue 3 with Composition API
-  - Pinia for state management
-  - Vue Router for navigation
-  - Tailwind CSS for styling
-  - Vite for fast development
+- Vue 3 with Composition API
+- Pinia for state management
+- Vue Router for navigation
+- Tailwind CSS for styling
+- Vite for fast development
 
-- **Backend**
-  - Express.js server
-  - MongoDB with Mongoose
-  - JWT authentication
-  - Environment variables support
+### Backend
 
-## Project Structure
+- Express.js with Node.js
+- MongoDB (via Docker) with Mongoose
+- JWT-based authentication
+- Environment variables support
+
+## 🐳 Dockerized Setup
+
+Everything runs in Docker containers for a consistent local development experience.
+
+### Project Structure
 
 ```
 my-fullstack-boilerplate/
-├── frontend/               # Vue.js frontend
-│   ├── src/
-│   │   ├── assets/       # Static assets
-│   │   ├── components/    # Vue components
-│   │   ├── pages/        # Page components
-│   │   ├── stores/       # Pinia stores
-│   │   ├── utils/        # Utility functions
-│   │   ├── App.vue       # Root component
-│   │   ├── main.js       # Entry point
-│   │   └── style.css     # Global styles
-|   |── .env             # Environment variables
-│   └── package.json
-│
-├── backend/               # Express.js backend
-│   ├── controllers/      # Route controllers
-│   ├── models/          # Mongoose models
-│   ├── routes/          # Express routes
-│   ├── middlewares/     # Custom middlewares
-│   ├── server.js        # Entry point
-|   ├── package.json
-│   └── .env             # Environment variables
+├── frontend/          # Vue.js app
+├── backend/           # Express.js API
+└── .docker-compose.yml           # GMulti-container configuration
 ```
 
-## Getting Started
+## 🚀 Getting Started
 
 ### Prerequisites
 
-- Node.js (v14 or higher)
-- MongoDB
+- Docker & Docker Compose installed
 
-### Installation
+### Installation Steps
 
-1. Clone the repository
+1. **Clone the repository**
 
-```bash
-git clone https://github.com/yourusername/my-fullstack-boilerplate.git
-cd my-fullstack-boilerplate
-```
+   ```bash
+   git clone https://github.com/valentinhippolyte/my-fullstack-boilerplate.git
+   cd my-fullstack-boilerplate
+   ```
 
-2. Install dependencies
+2. **Create environment files**
 
-```bash
-# Install backend dependencies
-cd backend
-npm install
+   ```env
+   # backend/.env
+   PORT=5000
+   MONGO_URI=mongodb://mongo:27017/boilerplate_db
+   JWT_SECRET=your_jwt_secret_here
+   ```
 
-# Install frontend dependencies
-cd ../frontend
-npm install
-```
+   ```env
+   # frontend/.env
+   VITE_API_URL=http://localhost:5000
+   ```
 
-3. Configure environment variables
-   Create `.env` files in both frontend and backend directories:
+3. **Start all services**
 
-```env
-# Backend
-PORT=5000
-MONGO_URI=your_mongodb_uri
-JWT_SECRET=your_jwt_secret
-```
+   ```bash
+   docker-compose up --build
+   ```
 
-```env
-# Frontend
-VITE_API_URL=your_api_uri
-```
+   - Frontend: http://localhost:5173
+   - Backend API: http://localhost:5000
+   - MongoDB: running in background on default port 27017
 
-### Running the Application
+4. **Stop all containers**
+   ```bash
+   docker-compose down
+   ```
 
-1. Start the backend server
+## 🔐 Authentication
 
-```bash
-cd backend
-npm run dev
-```
-
-2. Start the frontend development server
-
-```bash
-cd frontend
-npm run dev
-```
-
-The application will be available at:
-
-- Frontend: http://localhost:5173
-- Backend API: http://localhost:5000
-
-## Authentication
-
-The boilerplate includes a complete authentication system:
+The boilerplate includes a complete JWT authentication flow:
 
 - User registration
-- User login
-- Protected routes
-- JWT token management
+- Login
+- Protected routes (the verifytoken middlewaire is already created but not future routes)
 
-## API Endpoints
+### API Endpoints
 
-### Authentication
-
-- `POST /api/auth/register` - Register a new user
-- `POST /api/auth/login` - Login user
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+| Method | Endpoint           | Description                       |
+| ------ | ------------------ | --------------------------------- |
+| POST   | /api/auth/register | Register a new user               |
+| POST   | /api/auth/login    | Log in a user                     |
+| GET    | /api/protected     | Example route with JWT middleware |
