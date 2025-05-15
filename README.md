@@ -82,7 +82,7 @@ The boilerplate includes a complete JWT authentication flow:
 
 - User registration
 - Login
-- Protected routes (the verifytoken middlewaire is already created but not future routes)
+- Protected routes (the verifytoken middleware is already created but not the future routes)
 
 ### API Endpoints
 
