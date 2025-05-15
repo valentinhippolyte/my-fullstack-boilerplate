@@ -1,25 +1,24 @@
 import { createRouter, createWebHistory } from "vue-router";
-import App from "../App.vue";
-import Login from "../pages/Login.vue";
-import Profile from "../pages/Profile.vue";
-import Register from "../pages/Register.vue";
 import { useAuthStore } from "../stores/authStore";
 
 const routes = [
-  { path: "/", component: App },
+  {
+    path: "/",
+    component: () => import("../pages/Home.vue"),
+  },
   {
     path: "/login",
-    component: Login,
+    component: () => import("../pages/Login.vue"),
     meta: { requiresGuest: true },
   },
   {
     path: "/register",
-    component: Register,
+    component: () => import("../pages/Register.vue"),
     meta: { requiresGuest: true },
   },
   {
     path: "/profile",
-    component: Profile,
+    component: () => import("../pages/Profile.vue"),
     meta: { requiresAuth: true },
   },
 ];
