@@ -91,3 +91,12 @@ The boilerplate includes a complete JWT authentication flow:
 | POST   | /api/auth/register | Register a new user               |
 | POST   | /api/auth/login    | Log in a user                     |
 | GET    | /api/protected     | Example route with JWT middleware |
+
+
+## 📄 License
+
+This project is open source and available under the MIT License.
+
+You are free to use, modify, and distribute it for personal or commercial projects, as long as you include proper attribution.
+
+© 2025 Valentin HIPPOLYTE
