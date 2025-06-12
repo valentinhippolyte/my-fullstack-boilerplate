@@ -1,6 +1,4 @@
-import { defineConfig } from "eslint-define-config";
-
-export default defineConfig({
+export default {
   env: {
     browser: true,
     node: true,
@@ -12,4 +10,4 @@ export default defineConfig({
     sourceType: "module",
   },
   rules: {},
-});
+};

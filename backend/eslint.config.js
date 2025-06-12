@@ -1,6 +1,4 @@
-import { defineConfig } from "eslint-define-config";
-
-export default defineConfig({
+export default {
   env: {
     node: true,
     es2021: true,
@@ -11,4 +9,4 @@ export default defineConfig({
     sourceType: "module",
   },
   rules: {},
-});
+};
