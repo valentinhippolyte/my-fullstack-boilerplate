@@ -12,5 +12,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Say hello
-        run: echo "👋 Welcome in you first CI/CD pipeline for production!"
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Install frontend dependencies
+        run: |
+          cd frontend
+          pnpm install --frozen-lockfile
+
+      - name: Install backend dependencies
+        run: |
+          cd backend
+          pnpm install --frozen-lockfile
