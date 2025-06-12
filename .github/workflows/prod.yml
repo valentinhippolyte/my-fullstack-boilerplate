@@ -9,20 +9,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: 10.10.0
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
       - name: Install frontend dependencies
-        run: |
-          cd frontend
-          pnpm install --frozen-lockfile
+        run: cd frontend && pnpm install --no-frozen-lockfile
 
       - name: Install backend dependencies
-        run: |
-          cd backend
-          pnpm install --frozen-lockfile
+        run: cd backend && pnpm install --no-frozen-lockfile
