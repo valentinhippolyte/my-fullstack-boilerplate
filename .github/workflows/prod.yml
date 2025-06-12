@@ -1,0 +1,16 @@
+name: CI/CD - Production
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  test-pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Say hello
+        run: echo "👋 Welcome in you first CI/CD pipeline for production!"
